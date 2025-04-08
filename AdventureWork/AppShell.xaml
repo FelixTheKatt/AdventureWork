@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="AdventureWork.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:views="clr-namespace:AdventureWork.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:AdventureWork"
+    Shell.FlyoutBehavior="Flyout"
+    Title="AdventureWork">
+
+    <FlyoutItem Title="Accueil">
+        <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Commandes clients">
+        <ShellContent ContentTemplate="{DataTemplate views:SalesOrdersPage}" />
+    </FlyoutItem>
+
+</Shell>
