@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AdventureWork.Views.OrderDetailPage"
+             Title="Détail de la commande">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Titre section -->
+            <Label Text="Produits commandés"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource PrimaryColor}"
+                   HorizontalOptions="Center" />
+
+            <!-- Liste des produits -->
+            <CollectionView ItemsSource="{Binding Lines}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Stroke="{StaticResource SecondaryColor}"
+                                StrokeThickness="1"
+                                Padding="12"
+                                Margin="0,5"
+                                StrokeShape="RoundRectangle 12"
+                                BackgroundColor="{StaticResource BackgroundColor}">
+
+                            <VerticalStackLayout Spacing="4">
+
+                                <Label Text="{Binding ProductName}"
+                                       FontSize="18"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource PrimaryColor}" />
+
+                                <Label Text="{Binding Quantity, StringFormat='Quantité : {0}'}"
+                                       FontSize="14"
+                                       TextColor="{StaticResource TextColor}" />
+
+                                <Label Text="{Binding UnitPrice, StringFormat='Prix unitaire : {0:C}'}"
+                                       FontSize="14"
+                                       TextColor="{StaticResource TextColor}" />
+
+                                <Label Text="{Binding LineTotal, StringFormat='Total ligne : {0:C}'}"
+                                       FontSize="14"
+                                       FontAttributes="Bold"
+                                       TextColor="{StaticResource AccentColor}" />
+
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,54 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AdventureWork"
+             x:Class="AdventureWork.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml">
+                    <!-- Couleurs Mercator -->
+                    <Color x:Key="PrimaryColor">#1E2A38</Color>
+                    <!-- Bleu foncé -->
+                    <Color x:Key="SecondaryColor">#316EA8</Color>
+                    <!-- Bleu secondaire -->
+                    <Color x:Key="AccentColor">#EF7F1A</Color>
+                    <!-- Orange -->
+                    <Color x:Key="BackgroundColor">#F2F4F7</Color>
+                    <!-- Fond clair -->
+                    <Color x:Key="TextColor">#374151</Color>
+                    <!-- Gris foncé -->
+                </ResourceDictionary>
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml">
+                    <!-- Style global pour Label -->
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="{StaticResource TextColor}" />
+                        <Setter Property="FontSize" Value="14" />
+                    </Style>
+
+                    <!-- Style global pour Button -->
+                    <Style TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                        <Setter Property="TextColor" Value="White" />
+                        <Setter Property="CornerRadius" Value="8" />
+                        <Setter Property="Padding" Value="10,5" />
+                    </Style>
+
+                    <!-- Exemple pour Border -->
+                    <Style TargetType="Border">
+                        <Setter Property="Stroke" Value="{StaticResource SecondaryColor}" />
+                        <Setter Property="StrokeShape" Value="RoundRectangle 13" />
+                    </Style>
+
+                    <Style x:Key="AccentButtonStyle" TargetType="Button">
+                        <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+                        <Setter Property="TextColor" Value="White" />
+                        <Setter Property="CornerRadius" Value="8" />
+                        <Setter Property="Padding" Value="10,5" />
+                        <Setter Property="FontAttributes" Value="Bold" />
+                    </Style>
+                </ResourceDictionary>
+        </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AdventureWork.Views.SalesOrdersPage"
+             Title="SalesOrdersPage"
+             xmlns:conv="clr-namespace:AdventureWork.Converters">
+    <!-- Ajout de xmlns:conv="clr-namespace:AdventureWork.Converters" 
+    pour référencer la class seuil de conversion du folder converters
+    et ajouter la ressource a la content page comme pour les couleurs
+    dans app.xaml -->
+    <ContentPage.Resources>
+        <conv:ThresholdColorConverter x:Key="ThresholdColorConverter"/>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto,*,Auto" Padding="20" VerticalOptions="Fill">
+        <VerticalStackLayout Spacing="10" Padding="20" Grid.Row="0">
+            <Label Text="Commandes clients"
+               FontSize="24"
+               FontAttributes="Bold"
+               TextColor="{StaticResource PrimaryColor}"
+               HorizontalOptions="Center" />
+            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                <SearchBar Placeholder="Rechercher un client..."
+                           Text="{Binding SearchText, Mode=TwoWay}"
+                           SearchCommand="{Binding SearchCommand}"
+                           CancelButtonColor="{StaticResource AccentColor}" />
+                <!-- souci grille -->
+                <Button Grid.Column="1"
+                    Text="{Binding SortButtonText}"
+                    Command="{Binding ToggleSortCommand}"
+                    Style="{StaticResource AccentButtonStyle}"
+                    Padding="12"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Grid>
+        </VerticalStackLayout>
+        <CollectionView     x:Name="OrdersCollection"
+                            ItemsSource="{Binding SalesOrders}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                        Grid.Row="1"
+                        Margin="0,10,0,0">  
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Le conteneur vslayout prend la margin mais pas la border ???? -->
+                    <VerticalStackLayout Margin="0,6" Padding="0">
+                        <Border Stroke="{StaticResource SecondaryColor}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource BackgroundColor}"
+                        Padding="12"
+                            Margin="0,5,0,5"
+                        StrokeShape="RoundRectangle 12">
+                            <Grid ColumnDefinitions="*,Auto"
+                          RowDefinitions="Auto,Auto"
+                          ColumnSpacing="10">
+                                <Label Grid.Row="0" Grid.Column="0"
+                               Text="{Binding CustomerName}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource PrimaryColor}" />
+                                <Label Grid.Row="1" Grid.Column="0"
+                               Text="{Binding OrderDate, StringFormat='Commande du : {0:dd-MM-yy}'}"
+                               FontSize="14"
+                               TextColor="{StaticResource TextColor}" />
+                                <Label Grid.Row="1" Grid.Column="1"
+                               Text="{Binding TotalDue, StringFormat='Total : {0:C}'}"
+                               FontSize="14"
+                               HorizontalTextAlignment="End"
+                               HorizontalOptions="End"
+                               TextColor="{Binding TotalDue, Converter={StaticResource ThresholdColorConverter}}" />
+                            </Grid>
+                        </Border>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <VerticalStackLayout Padding="10" Spacing="6" Grid.Row="2">
+            <Border Stroke="{StaticResource AccentColor}"
+                      StrokeThickness="1"
+                      BackgroundColor="{StaticResource BackgroundColor}"
+                      Padding="12"
+                      Margin="0,5"
+                      StrokeShape="RoundRectangle 12">
+                <HorizontalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <Button Text="Précédent"
+                        Command="{Binding PreviousPageCommand}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        TextColor="White"
+                        WidthRequest="130"
+                        CornerRadius="12" />
+                    <Label Text="{Binding PageIndicatorText}"
+                   FontAttributes="Bold"
+                   FontSize="14"/>
+                    <Button Text="Suivant"
+                        Command="{Binding NextPageCommand}"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        TextColor="White"
+                        WidthRequest="130"
+                        CornerRadius="12" />
+                </HorizontalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+        </Grid>
+</ContentPage>
