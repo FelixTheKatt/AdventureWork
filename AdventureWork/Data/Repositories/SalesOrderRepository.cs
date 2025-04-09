@@ -59,7 +59,52 @@ public class SalesOrderRepository : RepositoryBase<SalesOrder>
 
     public override SalesOrder GetById(int id)
     {
-        throw new NotImplementedException();
+        using SqlConnection conn = ConnectionFactory.CreateConnection();
+
+        var cmd = new SqlCommand(@"
+        SELECT 
+            h.SalesOrderID,
+            h.OrderDate,
+            h.DueDate,
+            h.ShipDate,
+            h.Status,
+            h.AccountNumber,
+            h.SubTotal,
+            h.TaxAmt,
+            h.Freight,
+            h.TotalDue,
+            s.Name AS ShipMethod,
+            CONCAT(p.FirstName, ' ', p.LastName) AS CustomerName
+        FROM Sales.SalesOrderHeader h
+        JOIN Sales.Customer c ON h.CustomerID = c.CustomerID
+        JOIN Person.Person p ON c.PersonID = p.BusinessEntityID
+		JOIN Purchasing.ShipMethod s ON h.ShipMethodID = s.ShipMethodID
+        WHERE h.SalesOrderID = @Id", conn);
+
+        cmd.Parameters.AddWithValue("@Id", id);
+
+        using var reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            return new SalesOrder
+            {
+                SalesOrderID = reader.GetInt32(0),
+                OrderDate = reader.GetDateTime(1),
+                DueDate = reader.GetDateTime(2),
+                ShipDate = reader.IsDBNull(3) ? null : reader.GetDateTime(3),
+                Status = reader.GetByte(4),
+                AccountNumber = reader.GetString(5),
+                SubTotal = reader.GetDecimal(6),
+                TaxAmt = reader.GetDecimal(7),
+                Freight = reader.GetDecimal(8),
+                TotalDue = reader.GetDecimal(9),
+                ShipMethod = reader.GetString(10),
+                CustomerName = reader.GetString(11)
+            };
+        }
+
+        return null;
     }
 
     public override void Add(SalesOrder entity)

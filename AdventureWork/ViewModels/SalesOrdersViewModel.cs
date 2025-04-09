@@ -126,8 +126,7 @@ public class SalesOrdersViewModel : INotifyPropertyChanged
         SearchCommand = new Command(ApplySearch);
 
         // Connexion SQL à AdventureWorks via DAL maison
-        string connectionString = "Server=FELIX\\SQLEXPRESS;Database=AdventureWorks2022;User Id=maui_user;Password=MauiPass123!;TrustServerCertificate=True;";
-        DbConnectionFactory connectionFactory = new DbConnectionFactory(connectionString);
+        DbConnectionFactory connectionFactory = new DbConnectionFactory(DbSettings.ConnectionString);
         SalesOrderRepository salesOrderRepository = new SalesOrderRepository(connectionFactory);
 
         // Récupération des données et stockage
@@ -210,7 +209,7 @@ public class SalesOrdersViewModel : INotifyPropertyChanged
 
     private void LoadPage()
     {
-        DbConnectionFactory connectionFactory = new DbConnectionFactory(AppConfig.AzureConnectionString);
+        DbConnectionFactory connectionFactory = new DbConnectionFactory(DbSettings.ConnectionString);
         SalesOrderRepository salesOrderRepository = new SalesOrderRepository(connectionFactory);
 
         var orders = salesOrderRepository.GetPage(_currentPage, _pageSize).ToList();

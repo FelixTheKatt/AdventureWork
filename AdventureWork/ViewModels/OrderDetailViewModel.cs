@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.ObjectModel;
+using AdventureWork.Configuration;
 using AdventureWork.Data;
 using AdventureWork.Data.Repositories;
 using AdventureWork.Models;
@@ -9,15 +10,17 @@ namespace AdventureWork.ViewModels
     public class OrderDetailViewModel
     {
         public ObservableCollection<OrderDetailLine> Lines { get; set; }
+        public SalesOrder SelectedOrder { get; set; }
+        public decimal SubTotal => Lines.Sum(line => line.LineTotal);
 
         public OrderDetailViewModel(int orderId)
         {
             Lines = new ObservableCollection<OrderDetailLine>();
 
             // Connexion SQL
-            string connectionString = "Server=FELIX\\SQLEXPRESS;Database=AdventureWorks2022;User Id=maui_user;Password=MauiPass123!;TrustServerCertificate=True;";
-            DbConnectionFactory factory = new DbConnectionFactory(connectionString);
-            OrderDetailRepository repository = new OrderDetailRepository(factory);
+            DbConnectionFactory connectionFactory = new DbConnectionFactory(DbSettings.ConnectionString);
+            OrderDetailRepository repository = new OrderDetailRepository(connectionFactory);
+            SalesOrderRepository orderRepo = new SalesOrderRepository(connectionFactory);
 
             // Récupération des lignes
             var details = repository.GetByOrderId(orderId);
@@ -26,6 +29,9 @@ namespace AdventureWork.ViewModels
             {
                 Lines.Add(line);
             }
+
+            var order = orderRepo.GetById(orderId);
+            SelectedOrder = orderRepo.GetById(orderId);
         }
     }
 }
