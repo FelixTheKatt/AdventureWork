@@ -23,7 +23,7 @@ namespace AdventureWork.Data
             {
                 
                 Console.WriteLine($"Erreur de connexion à la base de données : {ex.Message}");
-                throw; // Relance l'exception si tu veux la propager
+                throw; // Relance 
             }
         }
     }

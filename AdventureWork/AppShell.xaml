@@ -11,9 +11,14 @@
     <FlyoutItem Title="Accueil">
         <ShellContent ContentTemplate="{DataTemplate local:MainPage}" />
     </FlyoutItem>
-
+    <!--faire gaffe pointer vers view et pas local-->
     <FlyoutItem Title="Commandes clients">
         <ShellContent ContentTemplate="{DataTemplate views:SalesOrdersPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Reporting">
+        <ShellContent
+        ContentTemplate="{DataTemplate views:ReportingPage}" />
     </FlyoutItem>
 
 </Shell>
