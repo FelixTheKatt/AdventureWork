@@ -15,10 +15,10 @@ namespace AdventureWork.Data
         {
             try
             {
-                SqlConnection connection = new SqlConnection(_connectionString);
-                connection.Open();
-                return connection;
-            }
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            return connection;
+        }
             catch (SqlException ex)
             {
                 

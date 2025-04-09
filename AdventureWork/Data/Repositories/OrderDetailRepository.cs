@@ -20,7 +20,7 @@ namespace AdventureWork.Data.Repositories
             using SqlConnection connection = connectionFactory.CreateConnection();
             if (connection.State != ConnectionState.Open)
             {
-                connection.Open();
+            connection.Open();
             }
 
             string query = @"

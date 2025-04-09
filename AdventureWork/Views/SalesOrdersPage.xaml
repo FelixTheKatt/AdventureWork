@@ -13,16 +13,17 @@
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto,*,Auto" Padding="20" VerticalOptions="Fill">
         <VerticalStackLayout Spacing="10" Padding="20" Grid.Row="0">
-            <Label Text="Commandes clients"
+            
+           <Label Text="Commandes clients"
                FontSize="24"
                FontAttributes="Bold"
                TextColor="{StaticResource PrimaryColor}"
                HorizontalOptions="Center" />
             <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
-                <SearchBar Placeholder="Rechercher un client..."
-                           Text="{Binding SearchText, Mode=TwoWay}"
-                           SearchCommand="{Binding SearchCommand}"
-                           CancelButtonColor="{StaticResource AccentColor}" />
+            <SearchBar Placeholder="Rechercher un client..."
+               Text="{Binding SearchText, Mode=TwoWay}"
+               SearchCommand="{Binding SearchCommand}"
+               CancelButtonColor="{StaticResource AccentColor}" />
                 <!-- souci grille -->
                 <Button Grid.Column="1"
                     Text="{Binding SortButtonText}"
@@ -36,12 +37,12 @@
         </VerticalStackLayout>
         <CollectionView     x:Name="OrdersCollection"
                             ItemsSource="{Binding SalesOrders}"
-                            SelectionMode="Single"
-                            SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
-                        Grid.Row="1"
-                        Margin="0,10,0,0">  
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
+                        SelectionMode="Single"
+                        SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                    Grid.Row="1"
+                    Margin="0,10,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
                     <!-- Le conteneur vslayout prend la margin mais pas la border ???? -->
                     <VerticalStackLayout Margin="0,6" Padding="0">
                         <Border Stroke="{StaticResource SecondaryColor}"
@@ -50,30 +51,41 @@
                         Padding="12"
                             Margin="0,5,0,5"
                         StrokeShape="RoundRectangle 12">
+
                             <Grid ColumnDefinitions="*,Auto"
                           RowDefinitions="Auto,Auto"
                           ColumnSpacing="10">
+
+                                <!-- Nom du client -->
                                 <Label Grid.Row="0" Grid.Column="0"
                                Text="{Binding CustomerName}"
                                FontSize="18"
                                FontAttributes="Bold"
                                TextColor="{StaticResource PrimaryColor}" />
+
+                                <!-- Date -->
                                 <Label Grid.Row="1" Grid.Column="0"
                                Text="{Binding OrderDate, StringFormat='Commande du : {0:dd-MM-yy}'}"
                                FontSize="14"
                                TextColor="{StaticResource TextColor}" />
+
+                                <!-- Total, à droite avec horizontal => END -->
                                 <Label Grid.Row="1" Grid.Column="1"
                                Text="{Binding TotalDue, StringFormat='Total : {0:C}'}"
                                FontSize="14"
                                HorizontalTextAlignment="End"
                                HorizontalOptions="End"
                                TextColor="{Binding TotalDue, Converter={StaticResource ThresholdColorConverter}}" />
+
                             </Grid>
+
                         </Border>
                     </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
         <VerticalStackLayout Padding="10" Spacing="6" Grid.Row="2">
             <Border Stroke="{StaticResource AccentColor}"
                       StrokeThickness="1"
@@ -100,5 +112,6 @@
                 </HorizontalStackLayout>
             </Border>
         </VerticalStackLayout>
-        </Grid>
+    </Grid>
+    
 </ContentPage>
